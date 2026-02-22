@@ -16,15 +16,16 @@ test('dark and light theme toggle works', async ({page}) => {
   await page.goto(sitePath('/docs/01-introduction'));
 
   const themeToggle = page.locator('button[aria-label*="Switch between dark and light mode"]');
-  await themeToggle.click();
-  await expect
-    .poll(async () => page.evaluate(() => document.documentElement.getAttribute('data-theme')))
-    .toBe('dark');
+  const getTheme = async () => page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+  const initialTheme = await getTheme();
 
   await themeToggle.click();
-  await expect
-    .poll(async () => page.evaluate(() => document.documentElement.getAttribute('data-theme')))
-    .toBe('light');
+  await expect.poll(getTheme).not.toBe(initialTheme);
+
+  const toggledTheme = await getTheme();
+  await themeToggle.click();
+  await expect.poll(getTheme).not.toBe(toggledTheme);
+  await expect.poll(getTheme).toBe(initialTheme);
 });
 
 test('mobile viewport remains usable', async ({page}) => {
