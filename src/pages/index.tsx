@@ -44,8 +44,8 @@ export default function Home(): React.JSX.Element {
               </Link>
             </div>
           </div>
-          <div className={styles.heroCard}>
-            <pre>{`*** Test Cases ***
+          <div className={styles.heroCard} data-testid="hero-code-card">
+            <pre data-testid="hero-code-snippet">{`*** Test Cases ***
 Run In Browser
     Open Playground
     Execute Robot Suite
