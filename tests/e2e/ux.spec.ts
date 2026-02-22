@@ -15,16 +15,16 @@ test('playground controls are visible and clickable', async ({page}) => {
 test('dark and light theme toggle works', async ({page}) => {
   await page.goto(sitePath('/docs/01-introduction'));
 
-  const themeToggle = page.locator('button[aria-label*="Switch between dark and light mode"]');
+  const themeToggle = page.locator('button[aria-label*="Switch between dark and light mode"]:visible').first();
   const getTheme = async () => page.evaluate(() => document.documentElement.getAttribute('data-theme'));
   const initialTheme = await getTheme();
+  const toggledTheme = initialTheme === 'dark' ? 'light' : 'dark';
+
+  await expect(themeToggle).toBeVisible();
+  await themeToggle.click();
+  await expect.poll(getTheme).toBe(toggledTheme);
 
   await themeToggle.click();
-  await expect.poll(getTheme).not.toBe(initialTheme);
-
-  const toggledTheme = await getTheme();
-  await themeToggle.click();
-  await expect.poll(getTheme).not.toBe(toggledTheme);
   await expect.poll(getTheme).toBe(initialTheme);
 });
 
