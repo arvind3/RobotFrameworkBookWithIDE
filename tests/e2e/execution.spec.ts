@@ -23,3 +23,15 @@ test('multi-file explorer and re-run flow works', async ({page}) => {
   await page.getByTestId('reset-button').click();
   await expect(page.locator('pre', {hasText: 'Files reset to chapter defaults.'})).toBeVisible();
 });
+
+test('runner works across chapter navigation in same session', async ({page}) => {
+  await page.goto(sitePath('/docs/01-introduction'));
+  await page.locator('[data-testid="robot-playground"]').waitFor();
+  await page.getByTestId('run-button').click();
+  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 120_000});
+
+  await page.goto(sitePath('/docs/02-installation-concepts'));
+  await page.locator('[data-testid="robot-playground"]').waitFor();
+  await page.getByTestId('run-button').click();
+  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 120_000});
+});

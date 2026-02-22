@@ -124,6 +124,23 @@ function removeDirectoryRecursive(fs: PyodideLike['FS'], directory: string): voi
   fs.rmdir(directory);
 }
 
+function clearDirectoryContents(fs: PyodideLike['FS'], directory: string): void {
+  if (!fs.analyzePath(directory).exists) {
+    return;
+  }
+
+  const children = fs.readdir(directory).filter((entry) => entry !== '.' && entry !== '..');
+  for (const child of children) {
+    const fullPath = `${directory}/${child}`;
+    const stat = fs.stat(fullPath);
+    if (fs.isDir(stat.mode)) {
+      removeDirectoryRecursive(fs, fullPath);
+    } else {
+      fs.unlink(fullPath);
+    }
+  }
+}
+
 function writeFilesToWorkspace(fs: PyodideLike['FS'], files: ExampleFileContentMap): void {
   ensureWorkspace(fs);
   const directories = collectDirectoryPaths(Object.keys(files));
@@ -190,11 +207,8 @@ export async function resetFs(files?: ExampleFileContentMap): Promise<void> {
   const pyodide = await initPyodide();
   const fs = pyodide.FS;
 
-  if (fs.analyzePath(WORKSPACE_ROOT).exists) {
-    removeDirectoryRecursive(fs, WORKSPACE_ROOT);
-  }
-
-  fs.mkdir(WORKSPACE_ROOT);
+  ensureWorkspace(fs);
+  clearDirectoryContents(fs, WORKSPACE_ROOT);
 
   if (files) {
     writeFilesToWorkspace(fs, files);
@@ -242,6 +256,8 @@ try:
 except Exception:
     status = "fail"
     stream.write(traceback.format_exc())
+finally:
+    os.chdir("/")
 
 json.dumps(
     {

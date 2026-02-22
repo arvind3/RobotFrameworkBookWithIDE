@@ -152,3 +152,15 @@ test('live playground executes chapter sample', async ({page}) => {
   await expect(page.locator('text=Execution Output')).toBeVisible();
   await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
 });
+
+test('live runner works across chapters in one browser session', async ({page}) => {
+  await page.goto(sitePath('/docs/01-introduction'));
+  await page.locator('[data-testid="robot-playground"]').waitFor();
+  await page.getByTestId('run-button').click();
+  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
+
+  await page.goto(sitePath('/docs/10-final-capstone-project'));
+  await page.locator('[data-testid="robot-playground"]').waitFor();
+  await page.getByTestId('run-button').click();
+  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
+});

@@ -23,6 +23,25 @@ export interface RobotPlaygroundProps {
 
 type RunStatus = 'idle' | 'running' | 'pass' | 'fail';
 
+function toErrorMessage(
+  error: unknown,
+  fallback: string,
+): string {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  if (typeof error === 'string' && error) {
+    return error;
+  }
+  if (error && typeof error === 'object' && 'message' in error) {
+    const message = (error as {message?: unknown}).message;
+    if (typeof message === 'string' && message) {
+      return message;
+    }
+  }
+  return fallback;
+}
+
 function resolveInitialFile(
   manifest: ExampleManifest,
   files: ExampleFileContentMap,
@@ -112,7 +131,7 @@ function RobotPlaygroundClient({
         if (!active) {
           return;
         }
-        const message = loadError instanceof Error ? loadError.message : 'Unknown loader error.';
+        const message = toErrorMessage(loadError, 'Unknown loader error.');
         setError(message);
         setOutput('');
       } finally {
@@ -124,7 +143,7 @@ function RobotPlaygroundClient({
 
     bootstrap().catch((runtimeError) => {
       setLoading(false);
-      setError(runtimeError instanceof Error ? runtimeError.message : 'Unexpected initialization error.');
+      setError(toErrorMessage(runtimeError, 'Unexpected initialization error.'));
     });
 
     return () => {
@@ -165,7 +184,7 @@ function RobotPlaygroundClient({
       setOutput(result.output || `Execution finished with return code ${result.returnCode}.`);
     } catch (runError) {
       setRunStatus('fail');
-      setError(runError instanceof Error ? runError.message : 'Unknown execution error.');
+      setError(toErrorMessage(runError, 'Unknown execution error.'));
       setOutput('Execution failed before Robot Framework could produce output.');
     }
   };
