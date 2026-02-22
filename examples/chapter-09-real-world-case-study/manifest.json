@@ -1,0 +1,14 @@
+{
+  "chapterId": "chapter-09-real-world-case-study",
+  "title": "Real-world Case Study",
+  "description": "End-to-end scenario with fixtures and helper libraries.",
+  "entrypoint": "suites/case_study.robot",
+  "dependencies": ["robotframework"],
+  "files": [
+    {"path": "suites/case_study.robot", "language": "robot", "editable": true, "entry": true, "order": 1},
+    {"path": "resources/auth.resource", "language": "robot", "editable": true, "order": 2},
+    {"path": "resources/orders.resource", "language": "robot", "editable": true, "order": 3},
+    {"path": "libraries/case_helpers.py", "language": "python", "editable": true, "order": 4},
+    {"path": "fixtures/case_data.json", "language": "json", "editable": true, "order": 5}
+  ]
+}

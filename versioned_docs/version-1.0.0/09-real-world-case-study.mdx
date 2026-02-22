@@ -1,0 +1,48 @@
+---
+id: 09-real-world-case-study
+title: 09 - Real-world Case Study
+sidebar_position: 9
+---
+
+import RobotPlayground from '@site/src/components/RobotPlayground';
+
+## Concept Explanation
+
+This chapter models a practical user journey across auth, ordering, and reporting. The focus is traceability between business steps and automation components.
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Suite
+  participant Keywords
+  participant Library
+  User->>Suite: Execute scenario
+  Suite->>Keywords: Run business steps
+  Keywords->>Library: Invoke helper logic
+  Library-->>Suite: Return deterministic result
+```
+
+## Example Files
+
+This chapter uses a multi-folder structure with suites, resources, and fixture data.
+
+## Editable Execution Block
+
+<RobotPlayground chapterId="chapter-09-real-world-case-study" height={430} />
+
+## Try It Yourself
+
+Change fixture values and confirm the output adapts to the new scenario.
+
+## Common Mistakes
+
+- Asserting implementation details instead of business outcomes.
+- Overusing global variables across unrelated scenarios.
+
+## Summary
+
+You can map realistic scenarios to maintainable Robot components.
+
+## Next Steps
+
+Finish with the full capstone architecture.

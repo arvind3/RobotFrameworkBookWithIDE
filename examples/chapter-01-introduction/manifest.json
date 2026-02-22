@@ -1,0 +1,11 @@
+{
+  "chapterId": "chapter-01-introduction",
+  "title": "Introduction",
+  "description": "Minimal Robot suite and shared resource file.",
+  "entrypoint": "main.robot",
+  "dependencies": ["robotframework"],
+  "files": [
+    {"path": "main.robot", "language": "robot", "editable": true, "entry": true, "order": 1},
+    {"path": "resources/common.resource", "language": "robot", "editable": true, "order": 2}
+  ]
+}

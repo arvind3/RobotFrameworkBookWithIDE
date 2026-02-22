@@ -1,0 +1,13 @@
+{
+  "chapterId": "chapter-07-best-practices",
+  "title": "Best Practices",
+  "description": "Stable data and reusable keywords.",
+  "entrypoint": "main.robot",
+  "dependencies": ["robotframework"],
+  "files": [
+    {"path": "main.robot", "language": "robot", "editable": true, "entry": true, "order": 1},
+    {"path": "resources/best_practices.resource", "language": "robot", "editable": true, "order": 2},
+    {"path": "data/users.json", "language": "json", "editable": true, "order": 3},
+    {"path": "data/orders.json", "language": "json", "editable": true, "order": 4}
+  ]
+}

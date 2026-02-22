@@ -1,0 +1,14 @@
+{
+  "chapterId": "chapter-04-multi-file-architecture",
+  "title": "Multi-file Architecture",
+  "description": "Nested folders with resources and Python helpers.",
+  "entrypoint": "suites/main.robot",
+  "dependencies": ["robotframework"],
+  "files": [
+    {"path": "suites/main.robot", "language": "robot", "editable": true, "entry": true, "order": 1},
+    {"path": "resources/auth.resource", "language": "robot", "editable": true, "order": 2},
+    {"path": "resources/order.resource", "language": "robot", "editable": true, "order": 3},
+    {"path": "libraries/session.py", "language": "python", "editable": true, "order": 4},
+    {"path": "helpers/constants.py", "language": "python", "editable": true, "order": 5}
+  ]
+}

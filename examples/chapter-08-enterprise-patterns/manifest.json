@@ -1,0 +1,14 @@
+{
+  "chapterId": "chapter-08-enterprise-patterns",
+  "title": "Enterprise Patterns",
+  "description": "Shared resources and execution profiles.",
+  "entrypoint": "suites/enterprise.robot",
+  "dependencies": ["robotframework"],
+  "files": [
+    {"path": "suites/enterprise.robot", "language": "robot", "editable": true, "entry": true, "order": 1},
+    {"path": "resources/shared.resource", "language": "robot", "editable": true, "order": 2},
+    {"path": "variables/profile.py", "language": "python", "editable": true, "order": 3},
+    {"path": "libraries/profile_library.py", "language": "python", "editable": true, "order": 4},
+    {"path": "configs/env.yaml", "language": "yaml", "editable": true, "order": 5}
+  ]
+}

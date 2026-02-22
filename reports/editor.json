@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-02-22T15:50:44.675Z",
+  "failures": [],
+  "findings": [
+    {
+      "chapter": "docs/01-introduction.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/02-installation-concepts.mdx",
+      "veryLongSentenceCount": 1
+    },
+    {
+      "chapter": "docs/03-robot-framework-basics.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/04-multi-file-architecture.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/05-advanced-keywords.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/06-python-integration.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/07-best-practices.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/08-enterprise-patterns.mdx",
+      "veryLongSentenceCount": 0
+    },
+    {
+      "chapter": "docs/09-real-world-case-study.mdx",
+      "veryLongSentenceCount": 1
+    },
+    {
+      "chapter": "docs/10-final-capstone-project.mdx",
+      "veryLongSentenceCount": 0
+    }
+  ],
+  "passed": true
+}

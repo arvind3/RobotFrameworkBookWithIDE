@@ -1,0 +1,2 @@
+retry_count: 1
+capture_artifacts: false

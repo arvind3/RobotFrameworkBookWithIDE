@@ -1,0 +1,12 @@
+{
+  "chapterId": "chapter-02-installation-concepts",
+  "title": "Installation Concepts",
+  "description": "Dependency and environment awareness in a chapter bundle.",
+  "entrypoint": "main.robot",
+  "dependencies": ["robotframework"],
+  "files": [
+    {"path": "main.robot", "language": "robot", "editable": true, "entry": true, "order": 1},
+    {"path": "resources/environment.resource", "language": "robot", "editable": true, "order": 2},
+    {"path": "libraries/install_notes.py", "language": "python", "editable": true, "order": 3}
+  ]
+}

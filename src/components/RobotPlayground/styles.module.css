@@ -1,0 +1,238 @@
+.wrapper {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(7, 151, 147, 0.12), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255, 143, 47, 0.12), transparent 45%),
+    var(--ifm-card-background-color);
+  overflow: hidden;
+  margin: 1.5rem 0 2rem;
+}
+
+.headerBlock {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.headerBlock h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.headerBlock p {
+  margin: 0.35rem 0 0;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 290px) 1fr;
+  min-height: 620px;
+}
+
+.fileExplorer {
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+  background: linear-gradient(170deg, rgba(5, 120, 115, 0.05), rgba(21, 79, 160, 0.02));
+  padding: 0.9rem;
+  overflow: auto;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.fileTree {
+  list-style: none;
+  margin: 0.55rem 0 0;
+  padding-left: 0.85rem;
+}
+
+.folderLabel {
+  font-weight: 700;
+  font-size: 0.86rem;
+  margin-top: 0.4rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.fileItem {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--ifm-color-emphasis-900);
+  text-align: left;
+  padding: 0.35rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+
+.fileItem:hover {
+  background: rgba(8, 129, 124, 0.08);
+}
+
+.fileItemSelected {
+  background: rgba(255, 143, 47, 0.18);
+  color: var(--ifm-font-color-base);
+  font-weight: 700;
+}
+
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.runButton,
+.resetButton {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.45rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.runButton {
+  background: #1b8f6a;
+  color: #fff;
+}
+
+.runButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.resetButton {
+  background: #dce8f3;
+  color: #18344d;
+}
+
+.editorSection {
+  min-height: 0;
+}
+
+.editorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  background: rgba(5, 120, 115, 0.05);
+}
+
+.currentFile {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.78rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.consoleSection {
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.consoleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(8, 33, 58, 0.05);
+}
+
+.statusBadge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.statusIdle {
+  background: #e6edf5;
+  color: #3b546d;
+}
+
+.statusRunning {
+  background: #f6d98f;
+  color: #4d3c1b;
+}
+
+.statusPass {
+  background: #b6edcf;
+  color: #13533b;
+}
+
+.statusFail {
+  background: #f7bfbc;
+  color: #651d19;
+}
+
+.consoleBody {
+  margin: 0;
+  background: #0f1724;
+  color: #f1f5ff;
+  padding: 1rem;
+  min-height: 170px;
+  max-height: 300px;
+  overflow: auto;
+  font-size: 0.82rem;
+}
+
+.loadingState {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 2px solid rgba(5, 120, 115, 0.2);
+  border-top-color: #1b8f6a;
+  animation: spin 0.9s linear infinite;
+}
+
+.errorBanner {
+  margin: 0.75rem 1rem;
+  border: 1px solid rgba(213, 75, 58, 0.5);
+  background: rgba(250, 205, 199, 0.65);
+  color: #7c2418;
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 996px) {
+  .layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .fileExplorer {
+    border-right: 0;
+    border-bottom: 1px solid var(--ifm-color-emphasis-200);
+    max-height: 220px;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+  }
+}

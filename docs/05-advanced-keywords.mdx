@@ -1,0 +1,43 @@
+---
+id: 05-advanced-keywords
+title: 05 - Advanced Keywords
+sidebar_position: 5
+---
+
+import RobotPlayground from '@site/src/components/RobotPlayground';
+
+## Concept Explanation
+
+Advanced keywords let you compose flows, handle failures, and reduce repetition. This chapter demonstrates layered keywords and argument-driven behavior.
+
+```mermaid
+flowchart TD
+  A[Business Keyword] --> B[Composable Step]
+  A --> C[Guard Condition]
+  C --> D[Fail Fast]
+```
+
+## Example Files
+
+This chapter includes `main.robot`, `keywords/advanced.resource`, and `resources/assertions.resource`.
+
+## Editable Execution Block
+
+<RobotPlayground chapterId="chapter-05-advanced-keywords" height={430} />
+
+## Try It Yourself
+
+Add a branch keyword that changes behavior based on a variable.
+
+## Common Mistakes
+
+- Hiding important assertions deep inside utility keywords.
+- Creating keywords that perform too many unrelated actions.
+
+## Summary
+
+You can now design clearer keyword APIs for maintainable test suites.
+
+## Next Steps
+
+Next: Python integration for custom libraries.

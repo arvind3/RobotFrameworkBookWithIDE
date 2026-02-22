@@ -1,0 +1,71 @@
+{
+  "name": "robot-framework-book-with-ide",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive Robot Framework book with an in-browser IDE and execution engine.",
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "predev": "npm run sync:examples",
+    "dev": "docusaurus start --host 0.0.0.0 --port 3000",
+    "start": "npm run dev",
+    "prebuild": "npm run sync:examples",
+    "build": "docusaurus build",
+    "serve": "docusaurus serve --host 0.0.0.0 --port 3000",
+    "sync:examples": "TMPDIR=/tmp tsx scripts/sync-examples.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:live": "playwright test -c playwright.live.config.ts",
+    "agents:run": "concurrently -n research,writer,reviewer,editor -c blue,green,yellow,magenta \"npm run agent:research\" \"npm run agent:writer\" \"npm run agent:reviewer\" \"npm run agent:editor\"",
+    "agent:research": "TMPDIR=/tmp tsx scripts/agents/research-agent.ts",
+    "agent:writer": "TMPDIR=/tmp tsx scripts/agents/writer-agent.ts",
+    "agent:reviewer": "TMPDIR=/tmp tsx scripts/agents/reviewer-agent.ts",
+    "agent:editor": "TMPDIR=/tmp tsx scripts/agents/editor-agent.ts",
+    "gh:status": "bash ./scripts/tools/gh.sh auth status",
+    "gh:repo:info": "bash ./scripts/tools/gh.sh repo view --json name,owner,defaultBranchRef,isPrivate,url",
+    "mcp:github": "bash ./scripts/tools/start-github-mcp.sh"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/theme-mermaid": "3.9.2",
+    "@easyops-cn/docusaurus-search-local": "0.55.0",
+    "@mdx-js/react": "^3.1.0",
+    "@monaco-editor/react": "^4.7.0",
+    "clsx": "^2.1.1",
+    "idb-keyval": "^6.2.2",
+    "monaco-editor": "^0.55.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/tsconfig": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^22.15.30",
+    "concurrently": "^9.2.1",
+    "tsx": "^4.20.6",
+    "typescript": "~5.6.3",
+    "vitest": "^3.2.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=22.0"
+  }
+}

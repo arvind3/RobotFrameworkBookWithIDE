@@ -1,0 +1,52 @@
+---
+id: tooling-github-cli-and-mcp
+title: GitHub CLI and MCP Automation
+slug: /tooling/github-cli-and-mcp
+sidebar_position: 11
+---
+
+## Zero-Manual Setup
+
+This repository uses scripts that auto-detect a working GitHub CLI session and reuse that token for GitHub MCP startup.
+
+## GitHub CLI Entry Point
+
+Run commands through:
+
+```bash
+bash scripts/tools/gh.sh auth status
+```
+
+Behavior:
+
+- Uses `gh` from `PATH` if available.
+- Falls back to `/mnt/c/Users/HP/rfskill/tools/bin/gh.exe`.
+- Fails fast with an explicit error if neither exists.
+
+## Token Retrieval
+
+Use:
+
+```bash
+bash scripts/tools/github-token.sh
+```
+
+This returns `gh auth token` from your current authenticated account.
+
+## Start GitHub MCP
+
+Use:
+
+```bash
+npm run mcp:github
+```
+
+The script will:
+
+- Load `GITHUB_TOKEN` from GitHub CLI automatically when not already set.
+- Start `@modelcontextprotocol/server-github` without an extra login step.
+
+## Troubleshooting
+
+- If `gh:status` fails, run login once in your host environment.
+- If token scopes are insufficient, refresh token permissions and rerun `gh auth status`.

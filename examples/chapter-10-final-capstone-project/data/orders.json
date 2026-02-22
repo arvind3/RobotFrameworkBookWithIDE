@@ -1,0 +1,4 @@
+{
+  "default_quantity": 2,
+  "allowed_status": ["new", "canceled"]
+}
