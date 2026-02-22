@@ -162,9 +162,9 @@ Library     libraries/session.py
 
 *** Test Cases ***
 Checkout Happy Path
-    ${session}=    Open Session
+    ${'{'}session{'}'}=    Open Session
     Login As User  demo_user
-    Create Order   ${session}
+    Create Order   ${'{'}session{'}'}
     Should Be Equal    ${'{'}status{'}'}    PASS`}</pre>
           </div>
         </section>
