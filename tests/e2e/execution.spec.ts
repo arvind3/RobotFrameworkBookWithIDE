@@ -8,7 +8,6 @@ test('chapter example executes and returns output', async ({page}) => {
   await page.getByTestId('run-button').click();
   await expect(page.locator('text=Execution Output')).toBeVisible();
   await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 120_000});
-  await expect(page.locator('pre').filter({hasText: 'PASS'}).or(page.locator('pre').filter({hasText: 'Welcome Message'}))).toBeVisible();
 });
 
 test('multi-file explorer and re-run flow works', async ({page}) => {

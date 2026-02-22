@@ -17,10 +17,14 @@ test('dark and light theme toggle works', async ({page}) => {
 
   const themeToggle = page.locator('button[aria-label*="Switch between dark and light mode"]');
   await themeToggle.click();
-  await expect(page.locator('html[data-theme="dark"]')).toBeVisible();
+  await expect
+    .poll(async () => page.evaluate(() => document.documentElement.getAttribute('data-theme')))
+    .toBe('dark');
 
   await themeToggle.click();
-  await expect(page.locator('html[data-theme="light"]')).toBeVisible();
+  await expect
+    .poll(async () => page.evaluate(() => document.documentElement.getAttribute('data-theme')))
+    .toBe('light');
 });
 
 test('mobile viewport remains usable', async ({page}) => {
