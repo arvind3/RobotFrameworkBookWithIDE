@@ -1,4 +1,5 @@
 import {expect, test} from '@playwright/test';
+import {chapterDocPaths} from '../support/chapterPaths';
 import {sitePath} from '../support/sitePaths';
 
 test('chapter example executes and returns output', async ({page}) => {
@@ -24,14 +25,14 @@ test('multi-file explorer and re-run flow works', async ({page}) => {
   await expect(page.locator('pre', {hasText: 'Files reset to chapter defaults.'})).toBeVisible();
 });
 
-test('runner works across chapter navigation in same session', async ({page}) => {
-  await page.goto(sitePath('/docs/01-introduction'));
-  await page.locator('[data-testid="robot-playground"]').waitFor();
-  await page.getByTestId('run-button').click();
-  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 120_000});
+test('runner executes all chapters in same session', async ({page}) => {
+  test.setTimeout(600_000);
 
-  await page.goto(sitePath('/docs/02-installation-concepts'));
-  await page.locator('[data-testid="robot-playground"]').waitFor();
-  await page.getByTestId('run-button').click();
-  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 120_000});
+  for (const chapterPath of chapterDocPaths) {
+    await page.goto(sitePath(chapterPath));
+    await page.locator('[data-testid="robot-playground"]').waitFor();
+    await page.getByTestId('run-button').click();
+    await expect(page.locator('text=Unknown execution error.')).toHaveCount(0);
+    await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 120_000});
+  }
 });

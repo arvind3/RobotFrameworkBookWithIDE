@@ -1,5 +1,6 @@
-import type {APIRequestContext} from '@playwright/test';
+import type {APIRequestContext, Page} from '@playwright/test';
 import {expect, test} from '@playwright/test';
+import {chapterDocPaths, primarySitePaths} from '../support/chapterPaths';
 import {sitePath} from '../support/sitePaths';
 
 function parseRgb(color: string): [number, number, number] {
@@ -27,22 +28,7 @@ function contrastRatio(foreground: [number, number, number], background: [number
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-const primaryRoutes = [
-  sitePath('/'),
-  sitePath('/docs/book-overview'),
-  sitePath('/docs/01-introduction'),
-  sitePath('/docs/02-installation-concepts'),
-  sitePath('/docs/03-robot-framework-basics'),
-  sitePath('/docs/04-multi-file-architecture'),
-  sitePath('/docs/05-advanced-keywords'),
-  sitePath('/docs/06-python-integration'),
-  sitePath('/docs/07-best-practices'),
-  sitePath('/docs/08-enterprise-patterns'),
-  sitePath('/docs/09-real-world-case-study'),
-  sitePath('/docs/10-final-capstone-project'),
-  sitePath('/docs/authoritative-resources'),
-  sitePath('/docs/tooling/github-cli-and-mcp'),
-];
+const primaryRoutes = primarySitePaths.map((path) => sitePath(path));
 
 async function waitForSiteReadiness(request: APIRequestContext, route: string): Promise<void> {
   let lastStatus: number | undefined;
@@ -59,6 +45,16 @@ async function waitForSiteReadiness(request: APIRequestContext, route: string): 
   }
 
   throw new Error(`Live site did not become healthy. Last status for ${route}: ${lastStatus ?? 'n/a'}`);
+}
+
+async function runChapterAndAssertPass(page: Page, chapterPath: string): Promise<void> {
+  await page.goto(sitePath(chapterPath));
+  await page.locator('[data-testid="robot-playground"]').waitFor();
+
+  await page.getByTestId('run-button').click();
+  await expect(page.locator('text=Execution Output')).toBeVisible();
+  await expect(page.locator('text=Unknown execution error.')).toHaveCount(0);
+  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
 }
 
 test.beforeAll(async ({request}) => {
@@ -151,23 +147,10 @@ test('live homepage shows all chapter roadmap cards', async ({page}) => {
   await expect(page.getByTestId('homepage-chapter-card')).toHaveCount(10);
 });
 
-test('live playground executes chapter sample', async ({page}) => {
-  await page.goto(sitePath('/docs/01-introduction'));
-  await page.locator('[data-testid="robot-playground"]').waitFor();
+test('live playground executes every chapter sample', async ({page}) => {
+  test.setTimeout(900_000);
 
-  await page.getByTestId('run-button').click();
-  await expect(page.locator('text=Execution Output')).toBeVisible();
-  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
-});
-
-test('live runner works across chapters in one browser session', async ({page}) => {
-  await page.goto(sitePath('/docs/01-introduction'));
-  await page.locator('[data-testid="robot-playground"]').waitFor();
-  await page.getByTestId('run-button').click();
-  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
-
-  await page.goto(sitePath('/docs/10-final-capstone-project'));
-  await page.locator('[data-testid="robot-playground"]').waitFor();
-  await page.getByTestId('run-button').click();
-  await expect(page.locator('span', {hasText: 'PASS'})).toBeVisible({timeout: 180_000});
+  for (const chapterPath of chapterDocPaths) {
+    await runChapterAndAssertPass(page, chapterPath);
+  }
 });
