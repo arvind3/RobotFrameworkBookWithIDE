@@ -73,8 +73,13 @@ const config: Config = {
       },
       items: [
         {
+          to: '/docs/book-overview',
+          label: 'Chapters',
+          position: 'left',
+        },
+        {
           to: '/docs/01-introduction',
-          label: 'Book',
+          label: 'Start Here',
           position: 'left',
         },
         {
@@ -99,6 +104,10 @@ const config: Config = {
         {
           title: 'Book',
           items: [
+            {
+              label: 'Book Overview',
+              to: '/docs/book-overview',
+            },
             {
               label: 'Start Reading',
               to: '/docs/01-introduction',

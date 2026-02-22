@@ -1,43 +1,68 @@
 ---
 id: 03-robot-framework-basics
-title: 03 - Robot Framework Basics
+title: 03 - Robot Framework Basics for Readable Tests
 sidebar_position: 3
 ---
 
 import RobotPlayground from '@site/src/components/RobotPlayground';
 
+## What You Will Learn
+
+- Core `.robot` structure: settings, test cases, and keywords.
+- How to keep tests readable while centralizing reusable logic.
+- How assertions communicate intent and failure causes.
+
+## Prerequisites
+
+- Completed chapters 01 and 02.
+
+## Real-World Scenario
+
+Your team has 40 smoke tests, but no shared structure. Every test case is written differently, making reviews and debugging expensive.
+
 ## Concept Explanation
 
-Robot suites are built from settings, variables, keywords, and test cases. This chapter uses simple reusable keywords to keep test steps readable.
+Robot Framework is strongest when test cases are concise and keywords are reusable. Tests should describe behavior, not implementation mechanics.
 
 ```mermaid
 graph TD
-  A[Test Case] --> B[Keyword]
-  B --> C[Keyword]
+  A[Test Case] --> B[Business Keyword]
+  B --> C[Reusable Keyword]
   C --> D[Assertion]
 ```
 
 ## Example Files
 
-This chapter uses `suite.robot`, `resources/user_keywords.resource`, and `data/test_data.json`.
+- `suite.robot`: core suite file.
+- `resources/user_keywords.resource`: reusable keyword definitions.
+- `data/test_data.json`: externalized fixture data.
 
 ## Editable Execution Block
 
-<RobotPlayground chapterId="chapter-03-robot-framework-basics" height={430} />
+<RobotPlayground chapterId="chapter-03-robot-framework-basics" height={440} />
 
 ## Try It Yourself
 
-Add one more validation step and verify output ordering.
+1. Add one extra validation keyword call in `suite.robot`.
+2. Keep keyword names business-readable.
+3. Run and verify ordering and output clarity.
 
 ## Common Mistakes
 
-- Incorrect spacing in keyword arguments.
-- Forgetting to import resource files in `*** Settings ***`.
+- Large, procedural test cases with no reusable keywords.
+- Weak keyword names like `Step1` and `DoStuff`.
+- Assertions that do not explain expected business outcomes.
 
 ## Summary
 
-You can structure basic suites and express reusable steps with custom keywords.
+You can now structure Robot suites in a maintainable way: concise tests, focused keywords, and clear assertions.
 
 ## Next Steps
 
-Next chapter introduces larger multi-file architecture patterns.
+Continue to [04 - Multi-file Architecture](/docs/04-multi-file-architecture).
+
+## Authoritative References
+
+- [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [How to Write Robot Framework Tests](https://docs.robotframework.org/docs/getting_started/how_to_write_rf)
+- [Robot Framework Style Guide](https://docs.robotframework.org/docs/style_guide)

@@ -1,43 +1,68 @@
 ---
 id: 05-advanced-keywords
-title: 05 - Advanced Keywords
+title: 05 - Advanced Keywords and Composable Test Design
 sidebar_position: 5
 ---
 
 import RobotPlayground from '@site/src/components/RobotPlayground';
 
+## What You Will Learn
+
+- How to design keyword APIs that stay readable under change.
+- How to separate orchestration keywords from assertion keywords.
+- How to keep keyword scope small and test intent explicit.
+
+## Prerequisites
+
+- Completed chapters 01 to 04.
+
+## Real-World Scenario
+
+Regression failures are difficult to debug because each keyword performs multiple unrelated operations. You need composable keyword contracts.
+
 ## Concept Explanation
 
-Advanced keywords let you compose flows, handle failures, and reduce repetition. This chapter demonstrates layered keywords and argument-driven behavior.
+Advanced keywords improve maintainability when each keyword has a single responsibility and predictable inputs/outputs.
 
 ```mermaid
 flowchart TD
-  A[Business Keyword] --> B[Composable Step]
-  A --> C[Guard Condition]
-  C --> D[Fail Fast]
+  A[Business Keyword] --> B[Validation Keyword]
+  A --> C[Formatting Keyword]
+  B --> D[Deterministic Assertion]
 ```
 
 ## Example Files
 
-This chapter includes `main.robot`, `keywords/advanced.resource`, and `resources/assertions.resource`.
+- `main.robot`: business-level scenario.
+- `keywords/advanced.resource`: composable keyword logic.
+- `resources/assertions.resource`: focused assertion helpers.
 
 ## Editable Execution Block
 
-<RobotPlayground chapterId="chapter-05-advanced-keywords" height={430} />
+<RobotPlayground chapterId="chapter-05-advanced-keywords" height={440} />
 
 ## Try It Yourself
 
-Add a branch keyword that changes behavior based on a variable.
+1. Add a new argument to `Build Greeting`.
+2. Update the calling test case and keep name clarity.
+3. Add one explicit assertion keyword for the new behavior.
 
 ## Common Mistakes
 
-- Hiding important assertions deep inside utility keywords.
-- Creating keywords that perform too many unrelated actions.
+- Hiding critical assertions deep inside utility keywords.
+- Long keywords that both arrange data and assert outcomes.
+- Poor argument naming that obscures test intent.
 
 ## Summary
 
-You can now design clearer keyword APIs for maintainable test suites.
+You can now compose behavior from small, intentional keywords that are easier to maintain, debug, and review.
 
 ## Next Steps
 
-Next: Python integration for custom libraries.
+Continue to [06 - Python Integration](/docs/06-python-integration).
+
+## Authoritative References
+
+- [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [Robot Framework Style Guide](https://docs.robotframework.org/docs/style_guide)
+- [BDD Test Case Style (optional extension)](https://docs.robotframework.org/docs/testcase_styles/bdd)

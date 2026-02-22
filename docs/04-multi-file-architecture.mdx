@@ -1,14 +1,32 @@
 ---
 id: 04-multi-file-architecture
-title: 04 - Multi-file Architecture
+title: 04 - Multi-file Architecture That Scales
 sidebar_position: 4
 ---
 
 import RobotPlayground from '@site/src/components/RobotPlayground';
 
+## What You Will Learn
+
+- How to split suites, resources, and libraries into clear layers.
+- How relative imports behave across nested folders.
+- How to prevent architecture drift as suites grow.
+
+## Prerequisites
+
+- Completed chapters 01 to 03.
+
+## Real-World Scenario
+
+A monolithic `tests.robot` file became unmaintainable after six months. You need a structure where teams can add scenarios without breaking existing imports.
+
 ## Concept Explanation
 
-Real automation projects split responsibilities across suites, resources, and libraries. This chapter introduces nested directories and cross-file imports.
+Scalable Robot projects separate concerns:
+
+- suites orchestrate business flows
+- resources define reusable test language
+- Python libraries hold code-heavy logic
 
 ```mermaid
 flowchart LR
@@ -19,25 +37,36 @@ flowchart LR
 
 ## Example Files
 
-This chapter uses `suites/main.robot`, two resource files, and nested Python helpers.
+- `suites/main.robot`: orchestrates end-to-end flow.
+- `resources/auth.resource` and `resources/order.resource`: domain keywords.
+- `libraries/session.py`: reusable Python helper.
 
 ## Editable Execution Block
 
-<RobotPlayground chapterId="chapter-04-multi-file-architecture" height={430} />
+<RobotPlayground chapterId="chapter-04-multi-file-architecture" height={440} />
 
 ## Try It Yourself
 
-Create a new keyword file under `resources/` and wire it into the suite.
+1. Add a new resource file under `resources/`.
+2. Import it into `suites/main.robot`.
+3. Add one keyword call and verify execution still passes.
 
 ## Common Mistakes
 
-- Relative paths that break after folder refactors.
-- Duplicating keywords across files instead of centralizing.
+- Circular resource imports.
+- Deep relative paths that become fragile during refactors.
+- Mixing business orchestration and low-level implementation in one file.
 
 ## Summary
 
-You can organize multi-file suites and keep imports predictable.
+You now have a repeatable multi-file structure that supports maintainability and team collaboration.
 
 ## Next Steps
 
-Advanced keyword composition comes next.
+Continue to [05 - Advanced Keywords](/docs/05-advanced-keywords).
+
+## Authoritative References
+
+- [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [Robot Framework Style Guide](https://docs.robotframework.org/docs/style_guide)
+- [Standard Libraries Overview](https://robotframework.org/robotframework/#standard-libraries)

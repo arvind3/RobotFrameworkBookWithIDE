@@ -29,6 +29,7 @@ function contrastRatio(foreground: [number, number, number], background: [number
 
 const primaryRoutes = [
   sitePath('/'),
+  sitePath('/docs/book-overview'),
   sitePath('/docs/01-introduction'),
   sitePath('/docs/02-installation-concepts'),
   sitePath('/docs/03-robot-framework-basics'),
@@ -39,6 +40,7 @@ const primaryRoutes = [
   sitePath('/docs/08-enterprise-patterns'),
   sitePath('/docs/09-real-world-case-study'),
   sitePath('/docs/10-final-capstone-project'),
+  sitePath('/docs/authoritative-resources'),
   sitePath('/docs/tooling/github-cli-and-mcp'),
 ];
 
@@ -142,6 +144,11 @@ test('homepage hero code panel contrast is readable', async ({page}) => {
 
   const ratio = contrastRatio(parseRgb(metrics.codeColor), parseRgb(metrics.cardBackground));
   expect(ratio).toBeGreaterThan(4.5);
+});
+
+test('live homepage shows all chapter roadmap cards', async ({page}) => {
+  await page.goto(sitePath('/'));
+  await expect(page.getByTestId('homepage-chapter-card')).toHaveCount(10);
 });
 
 test('live playground executes chapter sample', async ({page}) => {

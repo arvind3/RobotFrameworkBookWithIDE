@@ -1,49 +1,84 @@
 ---
 id: 10-final-capstone-project
-title: 10 - Final Capstone Project
+title: 10 - Final Capstone: Production-style Robot Project
 sidebar_position: 10
 ---
 
 import RobotPlayground from '@site/src/components/RobotPlayground';
 
+## What You Will Learn
+
+- How to orchestrate a large multi-folder Robot project end-to-end.
+- How to combine resources, libraries, variables, helpers, and fixtures.
+- How to evolve this baseline into your own team's automation architecture.
+
+## Prerequisites
+
+- Completed chapters 01 to 09.
+
+## Real-World Scenario
+
+You are asked to deliver a maintainable automation baseline for a product squad. It must support growth, team handoff, CI execution, and clear ownership boundaries.
+
 ## Concept Explanation
 
-The capstone combines all concepts into a nested, multi-domain project. It includes 20+ files, layered resources, Python helpers, variables, fixtures, and domain suites.
+The capstone mirrors a production project shape. The suite entrypoint composes focused domain files instead of accumulating all logic in one place.
 
 ```mermaid
 flowchart TB
-  A[suites/main.robot] --> B[suites/auth/*.robot]
-  A --> C[suites/orders/*.robot]
-  A --> D[suites/reports/*.robot]
-  B --> E[resources/auth.resource]
-  C --> F[resources/orders.resource]
-  D --> G[resources/reports.resource]
-  E --> H[libraries/*.py]
-  F --> H
-  G --> H
+  A[suites/main.robot] --> B[suites/auth/*]
+  A --> C[suites/orders/*]
+  A --> D[suites/reports/*]
+  A --> E[resources/*.resource]
+  A --> F[libraries/*.py]
+  A --> G[variables/env.py]
+  F --> H[helpers/*.py]
+  E --> I[fixtures + data + configs]
 ```
 
 ## Example Files
 
-This chapter includes nested suites, resources, libraries, helpers, variables, fixtures, configs, and data assets.
+This chapter contains 20+ files across:
+
+- `suites/`
+- `resources/`
+- `keywords/`
+- `libraries/`
+- `helpers/`
+- `variables/`
+- `data/` and `fixtures/`
+- `configs/`
 
 ## Editable Execution Block
 
-<RobotPlayground chapterId="chapter-10-final-capstone-project" height={500} />
+<RobotPlayground chapterId="chapter-10-final-capstone-project" height={520} />
 
 ## Try It Yourself
 
-Add one new end-to-end scenario under `suites/orders` and call it from `suites/main.robot`.
+1. Add a new business scenario under `suites/orders/`.
+2. Create or reuse supporting keywords under `resources/`.
+3. Keep assertions explicit and business-facing.
+4. Confirm the full flow still passes.
 
 ## Common Mistakes
 
-- Breaking relative imports while moving files between folders.
-- Letting shared resources become a dumping ground for unrelated keywords.
+- Letting `main.robot` become a dumping ground.
+- Cross-importing resources in ways that hide ownership.
+- Creating Python helpers without deterministic contracts.
 
 ## Summary
 
-You now have a production-style Robot project architecture you can evolve chapter by chapter.
+You now have a practical, production-style Robot Framework blueprint that can serve as a starting point for real team automation.
 
 ## Next Steps
 
-Use this capstone as a base for your own domain automation suite and integrate it with CI.
+1. Adapt this structure to your product's domain boundaries.
+2. Connect execution to your CI pipeline and reporting stack.
+3. Keep your conventions aligned with authoritative Robot Framework guidance.
+
+## Authoritative References
+
+- [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [Robot Framework Style Guide](https://docs.robotframework.org/docs/style_guide)
+- [Parallel Execution Guidance](https://docs.robotframework.org/docs/parallel)
+- [CI / Docker Guidance](https://docs.robotframework.org/docs/using_rf_in_ci_systems/docker)

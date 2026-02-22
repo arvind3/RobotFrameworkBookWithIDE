@@ -1,48 +1,75 @@
 ---
 id: 09-real-world-case-study
-title: 09 - Real-world Case Study
+title: 09 - Real-world Case Study: Business Flow to Automation
 sidebar_position: 9
 ---
 
 import RobotPlayground from '@site/src/components/RobotPlayground';
 
+## What You Will Learn
+
+- How to map business workflow steps into robust Robot scenarios.
+- How to keep traceability between user intent, keywords, and helpers.
+- How to validate outcomes instead of implementation details.
+
+## Prerequisites
+
+- Completed chapters 01 to 08.
+
+## Real-World Scenario
+
+You must automate a user journey across authentication and ordering. Stakeholders want confidence in business outcomes, not just technical smoke checks.
+
 ## Concept Explanation
 
-This chapter models a practical user journey across auth, ordering, and reporting. The focus is traceability between business steps and automation components.
+A case-study approach keeps test design grounded in business value while preserving maintainable architecture.
 
 ```mermaid
 sequenceDiagram
-  participant User
-  participant Suite
-  participant Keywords
-  participant Library
-  User->>Suite: Execute scenario
-  Suite->>Keywords: Run business steps
-  Keywords->>Library: Invoke helper logic
-  Library-->>Suite: Return deterministic result
+  participant Product as Product Goal
+  participant Suite as Robot Suite
+  participant Resource as Resource Keywords
+  participant Library as Python Helper
+  Product->>Suite: Validate order journey
+  Suite->>Resource: Execute business keywords
+  Resource->>Library: Build deterministic data
+  Library-->>Suite: Return stable result
+  Suite-->>Product: Business-level assertion
 ```
 
 ## Example Files
 
-This chapter uses a multi-folder structure with suites, resources, and fixture data.
+- `suites/case_study.robot`: case-study flow.
+- `resources/auth.resource` and `resources/orders.resource`: domain behavior.
+- `libraries/case_helpers.py`: deterministic user helpers.
+- `fixtures/case_data.json`: supporting scenario data.
 
 ## Editable Execution Block
 
-<RobotPlayground chapterId="chapter-09-real-world-case-study" height={430} />
+<RobotPlayground chapterId="chapter-09-real-world-case-study" height={440} />
 
 ## Try It Yourself
 
-Change fixture values and confirm the output adapts to the new scenario.
+1. Change fixture values to represent another user segment.
+2. Update keyword expectations.
+3. Verify the suite still reports business-meaningful output.
 
 ## Common Mistakes
 
-- Asserting implementation details instead of business outcomes.
-- Overusing global variables across unrelated scenarios.
+- Over-asserting internal technical details.
+- Business scenarios that rely on hidden global state.
+- Test names that do not communicate business intent.
 
 ## Summary
 
-You can map realistic scenarios to maintainable Robot components.
+You can now translate realistic product journeys into maintainable, traceable Robot automation.
 
 ## Next Steps
 
-Finish with the full capstone architecture.
+Continue to [10 - Final Capstone Project](/docs/10-final-capstone-project).
+
+## Authoritative References
+
+- [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [BDD Style Guidance](https://docs.robotframework.org/docs/testcase_styles/bdd)
+- [Flaky Test Guidance](https://docs.robotframework.org/docs/flaky_tests)

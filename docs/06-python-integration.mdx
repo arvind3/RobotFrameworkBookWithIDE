@@ -1,43 +1,69 @@
 ---
 id: 06-python-integration
-title: 06 - Python Integration
+title: 06 - Python Integration for Domain Logic
 sidebar_position: 6
 ---
 
 import RobotPlayground from '@site/src/components/RobotPlayground';
 
+## What You Will Learn
+
+- How Robot imports Python libraries and maps functions to keywords.
+- How to keep custom Python logic deterministic and test-friendly.
+- How to define clean handoffs between Robot steps and Python code.
+
+## Prerequisites
+
+- Completed chapters 01 to 05.
+- Basic Python familiarity is helpful.
+
+## Real-World Scenario
+
+Your tests need domain-specific calculations and formatting rules that are awkward to express purely in `.robot` syntax. Python libraries become the right boundary.
+
 ## Concept Explanation
 
-Python libraries unlock custom logic and domain-specific helpers. This chapter shows how Robot imports Python modules and exposes methods as keywords.
+Use Robot for behavior expression and Python for complex logic. Keep Python helpers pure, predictable, and small.
 
 ```mermaid
 flowchart LR
-  A[Robot Suite] --> B[Python Library]
-  B --> C[Reusable Logic]
-  C --> D[Test Assertions]
+  A[Robot Test Case] --> B[Python Library Keyword]
+  B --> C[Domain Logic]
+  C --> D[Robot Assertion]
 ```
 
 ## Example Files
 
-This chapter uses `suites/python_integration.robot`, `libraries/math_lib.py`, and `libraries/string_lib.py`.
+- `suites/python_integration.robot`: orchestrates suite steps.
+- `libraries/math_lib.py` and `libraries/string_lib.py`: Python keyword providers.
+- `resources/python_keywords.resource`: validation keyword wrappers.
 
 ## Editable Execution Block
 
-<RobotPlayground chapterId="chapter-06-python-integration" height={430} />
+<RobotPlayground chapterId="chapter-06-python-integration" height={440} />
 
 ## Try It Yourself
 
-Add a new Python method and call it as a keyword from Robot.
+1. Add one new Python helper function.
+2. Call it from the Robot suite as a keyword.
+3. Add a deterministic assertion for the returned value.
 
 ## Common Mistakes
 
-- Using non-deterministic logic in library methods.
-- Returning complex objects without clear assertion strategy.
+- Returning inconsistent types from Python functions.
+- Embedding random/time-dependent behavior in library keywords.
+- Using Python helpers for behavior that belongs in readable Robot steps.
 
 ## Summary
 
-You can integrate Python libraries and expose robust custom keywords.
+You can now extend Robot Framework with Python while preserving readability and deterministic automation behavior.
 
 ## Next Steps
 
-Apply these patterns to scalable best practices.
+Continue to [07 - Best Practices](/docs/07-best-practices).
+
+## Authoritative References
+
+- [Robot Framework User Guide](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
+- [Extending Robot Framework](https://docs.robotframework.org/docs/extending_robot_framework/custom-libraries/non-python_library)
+- [Standard Libraries Overview](https://robotframework.org/robotframework/#standard-libraries)

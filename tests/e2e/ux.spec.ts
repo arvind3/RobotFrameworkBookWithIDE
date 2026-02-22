@@ -63,6 +63,12 @@ test('homepage hero code panel keeps readable contrast', async ({page}) => {
   expect(ratio).toBeGreaterThan(4.5);
 });
 
+test('homepage exposes complete chapter roadmap cards', async ({page}) => {
+  await page.goto(sitePath('/'));
+  await expect(page.getByTestId('homepage-chapter-card')).toHaveCount(10);
+  await expect(page.getByText('Chapter Roadmap')).toBeVisible();
+});
+
 test('mobile viewport remains usable', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});
   await page.goto(sitePath('/docs/05-advanced-keywords'));
