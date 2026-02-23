@@ -60,9 +60,21 @@ jobs:
           LIVE_BASE_URL: ${{ steps.deployment.outputs.page_url }}
         run: npm run test:e2e:live
 
+      - name: Live analytics runtime audit
+        env:
+          LIVE_BASE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: npm run analytics:audit:live
+
       - name: Upload live Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-live
           path: playwright-report-live
+
+      - name: Upload live analytics audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analytics-runtime-live
+          path: artifacts/ga4-runtime-live.json

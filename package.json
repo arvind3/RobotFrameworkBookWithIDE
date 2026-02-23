@@ -25,7 +25,10 @@
     "agent:editor": "TMPDIR=/tmp tsx scripts/agents/editor-agent.ts",
     "gh:status": "bash ./scripts/tools/gh.sh auth status",
     "gh:repo:info": "bash ./scripts/tools/gh.sh repo view --json name,owner,defaultBranchRef,isPrivate,url",
-    "mcp:github": "bash ./scripts/tools/start-github-mcp.sh"
+    "mcp:github": "bash ./scripts/tools/start-github-mcp.sh",
+    "analytics:validate": "node tools/analytics/run_validate.mjs",
+    "analytics:audit:live": "node tools/analytics/run_live_audit.mjs",
+    "analytics:snippets": "node tools/analytics/run_snippets.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",

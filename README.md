@@ -41,6 +41,18 @@ Open: `http://127.0.0.1:3000/RobotFrameworkBookWithIDE/`
 - `npm run gh:status`: verify GitHub CLI auth.
 - `npm run mcp:github`: launch GitHub MCP server using `gh auth token`.
 
+## Analytics (GA4 + GTM)
+
+- Config file: `analytics/analytics.config.json`
+- Contract docs: `analytics/README.md`
+- KPI definitions: `analytics/dashboard-kpis.md`
+
+Commands:
+
+- `npm run analytics:validate`: validate analytics contract; if `build/` exists it also scans built HTML for duplicate tag injection.
+- `npm run analytics:snippets`: generate GTM/gtag snippets into `artifacts/snippets`.
+- `LIVE_BASE_URL=https://arvind3.github.io/RobotFrameworkBookWithIDE npm run analytics:audit:live`: run Playwright analytics runtime audit against live pages.
+
 ## Project Layout
 
 - `docs/`: book chapters and tooling docs.
