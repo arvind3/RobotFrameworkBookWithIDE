@@ -7,8 +7,10 @@
   },
   "include": [
     "src",
+    "plugins",
     "tests",
     "scripts",
+    "tools/analytics",
     "docusaurus.config.ts",
     "sidebars.ts",
     "playwright.config.ts",

@@ -2,6 +2,13 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const analyticsConfig = require('./analytics/analytics.config.json') as {
+  book_id: string;
+  ga4: {measurement_id: string};
+  gtm: {container_id: string};
+  consent: {mode: 'always_on' | 'balanced_by_region' | 'strict_by_default'};
+};
+
 const config: Config = {
   title: 'Robot Framework Book With IDE',
   tagline: 'Interactive Robot Framework learning with runnable browser examples',
@@ -45,6 +52,15 @@ const config: Config = {
     ],
   ],
   plugins: [
+    [
+      require.resolve('./plugins/ga4-skill-plugin'),
+      {
+        measurementId: analyticsConfig.ga4.measurement_id,
+        gtmContainerId: analyticsConfig.gtm.container_id,
+        bookId: analyticsConfig.book_id,
+        consentMode: analyticsConfig.consent.mode,
+      },
+    ],
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
@@ -137,7 +153,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Robot Framework IDE Book`,
+      copyright: `Copyright © ${new Date().getFullYear()} Robot Framework IDE Book | This site uses privacy-aware analytics to improve book content quality.`,
     },
     prism: {
       theme: prismThemes.github,
