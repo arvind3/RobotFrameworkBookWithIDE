@@ -18,18 +18,31 @@ export default function ga4SkillPlugin(_context: LoadContext, options: PluginOpt
   window.__ga4SkillTagLoaded = true;
 
   window.dataLayer = window.dataLayer || [];
+  function gtag(){ window.dataLayer.push(arguments); }
+  window.gtag = window.gtag || gtag;
+
+  var gtagScript = document.createElement('script');
+  gtagScript.async = true;
+  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + ${JSON.stringify(measurementId)};
+  document.head.appendChild(gtagScript);
+
   window.bookAnalyticsContext = {
     book_id: ${JSON.stringify(bookId)},
     version: 'v2',
     measurement_id: ${JSON.stringify(measurementId)}
   };
 
-  window.dataLayer.push({
-    event: 'consent_default',
+  gtag('consent', 'default', {
     analytics_storage: ${JSON.stringify(consentState)},
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied'
+  });
+
+  gtag('js', new Date());
+  gtag('config', ${JSON.stringify(measurementId)}, {
+    send_page_view: true,
+    anonymize_ip: true,
   });
 
   window.bookAnalyticsTrack = function(eventName, params) {
@@ -39,9 +52,12 @@ export default function ga4SkillPlugin(_context: LoadContext, options: PluginOpt
       page_path: window.location.pathname,
       version: window.bookAnalyticsContext.version
     });
+
+    gtag('event', eventName, payload);
     window.dataLayer.push(Object.assign({ event: eventName }, payload));
   };
 
+  // Keep GTM for existing container workflows.
   (function(w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
