@@ -21,16 +21,30 @@ export default function ga4SkillPlugin(_context: LoadContext, options: PluginOpt
   function gtag(){ window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
 
-  var gtagScript = document.createElement('script');
-  gtagScript.async = true;
-  gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + ${JSON.stringify(measurementId)};
-  document.head.appendChild(gtagScript);
+  var gtagSrc = 'https://www.googletagmanager.com/gtag/js?id=' + ${JSON.stringify(measurementId)};
+  var gtagAlreadyPresent = Array.prototype.some.call(document.scripts, function(s){
+    return s.src && s.src.indexOf(gtagSrc) !== -1;
+  });
+  if (!gtagAlreadyPresent) {
+    var gtagScript = document.createElement('script');
+    gtagScript.async = true;
+    gtagScript.src = gtagSrc;
+    document.head.appendChild(gtagScript);
+  }
 
   window.bookAnalyticsContext = {
     book_id: ${JSON.stringify(bookId)},
     version: 'v2',
     measurement_id: ${JSON.stringify(measurementId)}
   };
+
+  window.dataLayer.push({
+    event: 'consent_default',
+    analytics_storage: ${JSON.stringify(consentState)},
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
 
   gtag('consent', 'default', {
     analytics_storage: ${JSON.stringify(consentState)},
