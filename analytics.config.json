@@ -1,0 +1,15 @@
+{
+  "project_key": "RobotFrameworkBookWithIDE",
+  "gtm": {
+    "container_id": "GTM-CONTAINER_ID"
+  },
+  "ga4": {
+    "measurement_id": "G-MEASUREMENT_ID"
+  },
+  "tracking": {
+    "enabled": true,
+    "debug": false
+  },
+  "_managed_by": "brand-analytics-automation",
+  "_version": "1.0.0"
+}
